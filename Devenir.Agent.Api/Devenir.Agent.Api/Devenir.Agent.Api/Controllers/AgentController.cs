@@ -149,17 +149,24 @@ public class AgentController : ControllerBase
         await Response.WriteAsync($"data: {{\"type\":\"text-start\",\"id\":\"{messageId}\"}}\n\n", cancellationToken);
         await Response.Body.FlushAsync(cancellationToken);
 
-        await foreach (var chunk in stream)
+        try
         {
-            if (!string.IsNullOrEmpty(chunk.Content))
+            await foreach (var chunk in stream)
             {
-                // JsonSerializer.Serialize escapa correctamente las comillas y saltos de línea del chunk
-                var escapedDelta = JsonSerializer.Serialize(chunk.Content);
+                if (!string.IsNullOrEmpty(chunk.Content))
+                {
+                    // JsonSerializer.Serialize escapa correctamente las comillas y saltos de línea del chunk
+                    var escapedDelta = JsonSerializer.Serialize(chunk.Content);
 
-                // 3. Enviar cada fragmento como text-delta
-                await Response.WriteAsync($"data: {{\"type\":\"text-delta\",\"id\":\"{messageId}\",\"delta\":{escapedDelta}}}\n\n", cancellationToken);
-                await Response.Body.FlushAsync(cancellationToken);
+                    // 3. Enviar cada fragmento como text-delta
+                    await Response.WriteAsync($"data: {{\"type\":\"text-delta\",\"id\":\"{messageId}\",\"delta\":{escapedDelta}}}\n\n", cancellationToken);
+                    await Response.Body.FlushAsync(cancellationToken);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            throw;
         }
 
         // 4. Enviar el cierre del mensaje (text-end) y terminar el stream ([DONE])

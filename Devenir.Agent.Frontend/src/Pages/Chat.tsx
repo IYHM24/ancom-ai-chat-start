@@ -8,7 +8,7 @@ export const Chat: React.FC = () => {
 	const [input, setInput] = useState("")
 	const messagesEndRef = useRef<HTMLDivElement>(null)
 
-	const { messages, sendMessage, status, stop /*regenerate*/ } = useChat({
+	const { messages, sendMessage, status, stop } = useChat({
 		transport: new DefaultChatTransport({
 			api: "http://localhost:5293/api/agent/chat",
 		}),
@@ -19,8 +19,6 @@ export const Chat: React.FC = () => {
 
 	const isPending = status === "submitted"
 	const isStreaming = status === "streaming"
-
-	
 	const isLoading = isPending || isStreaming
 
 	useEffect(() => {
@@ -33,12 +31,12 @@ export const Chat: React.FC = () => {
 		setInput("")
 	}
 
-
 	return (
-		<div className="min-h-screen bg-[#0e0e0e] text-neutral-100 flex flex-col justify-between font-sans">
-			<main className="flex-1 w-full max-w-3xl mx-auto px-4 py-8 overflow-y-auto">
+		/* Eliminados min-h-screen y overflow-y-auto para evitar el doble scroll */
+		<div className="flex-1 flex flex-col justify-between font-sans min-h-full">
+			<div className="flex-1 w-full max-w-3xl mx-auto px-4 pb-6">
 				{messages.length === 0 && !isPending ? (
-					<div className="h-[75vh] flex flex-col items-center justify-center text-center text-neutral-400 space-y-3">
+					<div className="h-[60vh] flex flex-col items-center justify-center text-center text-neutral-400 space-y-3">
 						<h1 className="text-3xl font-medium text-neutral-200 tracking-tight">Hola</h1>
 						<p className="text-base text-neutral-500">¿En qué te puedo ayudar hoy?</p>
 					</div>
@@ -53,11 +51,7 @@ export const Chat: React.FC = () => {
 							const isLastMessage = index === messages.length - 1;
 							const isAssistant = msg.role === "assistant";
 
-							// 🚩 La bandera simplificada:
-							// Está pensando SI la petición está cargando, es el último mensaje de la IA y AÚN no hay texto.
 							const isPendingResponse = isLoading && isAssistant && isLastMessage && !textContent;
-
-							// El streaming solo está activo mientras carga Y ya comenzó a llegar texto
 							const isActivelyStreaming = isLoading && isAssistant && isLastMessage && textContent.length > 0;
 
 							return (
@@ -71,16 +65,6 @@ export const Chat: React.FC = () => {
 							);
 						})}
 
-						{/* MENSAJE TEMPORAL: Solo se muestra si isLoading es true Y AÚN NO se ha insertado un objeto de respuesta del asistente en el arreglo 'messages' */}
-						{isLoading && messages[messages.length - 1]?.role === "user" && (
-							<ChatMessage
-								role="assistant"
-								content=""
-								isPending={true}
-							/>
-						)}
-
-						{/* LOADER EXPLÍCITO: Se muestra cuando la petición fue enviada pero el backend aún no empieza a transmitir */}
 						{isPending && (
 							<ChatMessage
 								role="assistant"
@@ -92,17 +76,23 @@ export const Chat: React.FC = () => {
 						<div ref={messagesEndRef} />
 					</div>
 				)}
-			</main>
+			</div>
 
-			<footer className="sticky bottom-0 bg-linear-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent pt-6 pb-6 px-4">
-				<PromptInput
-					value={input}
-					onChange={setInput}
-					onSubmit={handleSend}
-					onStop={stop}
-					isLoading={isLoading}
-					isPending={isPending}
-				/>
+			{/* Input fijo en la parte inferior del scroll */}
+			<footer className="sticky bottom-0 bg-linear-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent pt-6 pb-6 px-4 z-10">
+				<div className="max-w-3xl mx-auto">
+					<PromptInput
+						value={input}
+						onChange={setInput}
+						onSubmit={handleSend}
+						onStop={stop}
+						isLoading={isLoading}
+						isPending={isPending}
+					/>
+					<div className="text-center mt-4 text-xs text-neutral-500">
+						<span>Devenir | Todos los derechos reservados © {new Date().getFullYear()}</span>
+					</div>
+				</div>
 			</footer>
 		</div>
 	)
