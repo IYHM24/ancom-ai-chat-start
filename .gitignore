@@ -1,0 +1,83 @@
+## ==========================================
+## .NET / C# (.NET 10)
+## ==========================================
+
+# Archivos de compilación y temporales
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+build/
+
+# Archivos de usuario y configuración local de IDEs
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+*.userprefs
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.swp
+*.~*
+
+# Archivos de configuración de secretos/ambiente local
+appsettings.Development.json
+appsettings.Local.json
+*.secrets.json
+
+# UserSecrets
+secrets.json
+
+# Entity Framework / Migraciones SQLite locales
+*.db
+*.sqlite
+*.sqlite3
+
+## ==========================================
+## React / Node.js / Frontend
+## ==========================================
+
+# Dependencias de Node
+node_modules/
+.pnpm-store/
+
+# Salidas de compilación
+dist/
+build/
+out/
+.next/
+
+# Archivos de variables de entorno (sensibles)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs de gestores de paquetes
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Caché de linters y herramientas de frontend
+.eslintcache
+.stylelintcache
+.turbo/
+
+## ==========================================
+## Archivos del sistema operativo
+## ==========================================
+
+# Windows
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride

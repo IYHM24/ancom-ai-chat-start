@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Devenir.Agent.Api/">
+    <Project Path="Devenir.Agent.Api/Devenir.Agent.Api.csproj" />
+  </Folder>
+  <Folder Name="/Devenir.Agent.Domain.Test/">
+    <Project Path="../../Devenir.Agent.Domain.Test/Devenir.Agent.Domain.Test/Devenir.Agent.Domain.Test.csproj" />
+  </Folder>
+  <Folder Name="/Devenir.Agent.Domain/">
+    <Project Path="../../Devenir.Agent.Domain/Devenir.Agent.Domain/Devenir.Agent.Domain.csproj" />
+  </Folder>
+</Solution>
