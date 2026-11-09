@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react"
-import { CornerRightUp, Plus,  Send, Square} from "lucide-react"
+import { CornerRightUp, Plus, Square} from "lucide-react"
 
 interface PromptInputProps {
   value: string

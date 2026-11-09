@@ -21,6 +21,53 @@ public class AgentController : ControllerBase
     }
 
     /// <summary>
+    /// Endpoint para comprobar la conectividad del agente y su tiempo de respuesta.
+    /// </summary>
+    [HttpGet("ping")]
+    public async Task<IActionResult> Ping(CancellationToken cancellationToken)
+    {
+        var stopwatch = System.Diagnostics.Stopwatch.StartNew();
+
+        try
+        {
+            var chatService = _kernel.GetRequiredService<IChatCompletionService>();
+
+            var history = new ChatHistory();
+            history.AddUserMessage("ping");
+
+            // Solicitamos una respuesta mínima para comprobar que el modelo (Ollama) responda
+            var response = await chatService.GetChatMessageContentAsync(
+                history,
+                cancellationToken: cancellationToken
+            );
+
+            stopwatch.Stop();
+
+            return Ok(new
+            {
+                status = "online",
+                agent = "Devenir AI Agent",
+                latencyMs = stopwatch.ElapsedMilliseconds,
+                timestamp = DateTime.UtcNow,
+                modelResponse = response.Content?.Trim() ?? "pong"
+            });
+        }
+        catch (Exception ex)
+        {
+            stopwatch.Stop();
+
+            return StatusCode(StatusCodes.Status503ServiceUnavailable, new
+            {
+                status = "offline",
+                agent = "Devenir AI Agent",
+                latencyMs = stopwatch.ElapsedMilliseconds,
+                timestamp = DateTime.UtcNow,
+                error = ex.Message
+            });
+        }
+    }
+
+    /// <summary>
     /// Opción 1: Consulta directa con Prompt
     /// </summary>
     [HttpPost("ask")]
@@ -174,6 +221,7 @@ public class AgentController : ControllerBase
         await Response.WriteAsync("data: [DONE]\n\n", cancellationToken);
         await Response.Body.FlushAsync(cancellationToken);
     }
+
 
 }
 
