@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
@@ -16,4 +16,9 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.19.0" />
   </ItemGroup>
 
+	<!-- Ejecuta el script de ngrok escapando rutas con espacios y caracteres especiales -->
+	<Target Name="LaunchNgrokPS" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+		<Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -Command &quot;&amp; '$(MSBuildProjectDirectory)\start-ngrok.ps1'&quot;" ContinueOnError="true" />
+	</Target>
+	
 </Project>

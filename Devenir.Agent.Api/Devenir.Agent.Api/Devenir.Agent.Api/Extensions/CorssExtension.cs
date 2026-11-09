@@ -21,9 +21,11 @@ public static class CorssExtension
                 name: PolicyCorssList.WhiteList.ToString(), 
                 policy =>
                 {
-                    policy.WithOrigins("http://localhost:5173") // El puerto de tu frontend (Vite/React)
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                    policy.WithOrigins([
+                        "http://localhost:5173",                                    // El puerto de tu frontend (Vite/React)
+                        "https://jeffrey-noncompoundable-oversoftly.ngrok-free.dev" // El dominio de tu frontend (ngrok)
+                     ]).AllowAnyHeader()
+                       .AllowAnyMethod();
                 }
             );
         });
