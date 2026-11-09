@@ -15,6 +15,7 @@ export const checkAgentStatus = async (): Promise<PingResponse> => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        'ngrok-skip-browser-warning': 'true'
       },
     });
 
