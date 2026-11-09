@@ -79,9 +79,9 @@ export const ChatMessage: React.FC<MessageProps> = ({
       {/* LOADER: Estado inicial de espera antes de recibir caracteres */}
       {isPending && !content && (
         <div className="flex items-center gap-2.5 text-neutral-400 py-2">
-          <Loader2 className="w-4 h-4 animate-spin text-indigo-400" />
+          <Loader2 className="w-4 h-4 animate-spin text-green-400" />
           <span className="text-sm font-medium animate-pulse flex items-center gap-1.5">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-400" /> Pensando...
+            <Sparkles className="w-3.5 h-3.5 text-green-400" /> Pensando...
           </span>
         </div>
       )}
@@ -107,7 +107,7 @@ export const ChatMessage: React.FC<MessageProps> = ({
                     )
                   }
                   return (
-                    <code className="bg-[#282a2c] text-indigo-300 px-1.5 py-0.5 rounded-md text-sm font-mono" {...props}>
+                    <code className="bg-[#282a2c] text-green-300 px-1.5 py-0.5 rounded-md text-sm font-mono" {...props}>
                       {children}
                     </code>
                   )
@@ -120,7 +120,7 @@ export const ChatMessage: React.FC<MessageProps> = ({
           
           {/* Cursor parpadeante estilo mecanografía */}
           {isStreaming && (
-            <span className="inline-block w-2 h-4.5 bg-indigo-400 animate-pulse ml-1 align-middle rounded-sm shadow-[0_0_8px_rgba(129,140,248,0.8)]" />
+            <span className="inline-block w-2 h-4.5 bg-green-400 animate-pulse ml-1 align-middle rounded-sm shadow-[0_0_8px_rgba(34,197,94,0.8)]" />
           )}
         </div>
       )}

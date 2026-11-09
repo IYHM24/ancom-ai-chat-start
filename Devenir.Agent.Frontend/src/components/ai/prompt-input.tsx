@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react"
-import { Plus,  Send, Square} from "lucide-react"
+import { CornerRightUp, Plus,  Send, Square} from "lucide-react"
 
 interface PromptInputProps {
   value: string
@@ -94,7 +94,7 @@ export const PromptInput: React.FC<PromptInputProps> = ({
                 onClick={onSubmit}
                 className="p-2.5 bg-neutral-100 text-neutral-900 hover:bg-white rounded-full transition-colors shadow-md"
               >
-                <Send className="w-4 h-4" />
+                <CornerRightUp className="w-4 h-4" />
               </button>
             )
           )}

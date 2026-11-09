@@ -7,6 +7,41 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* ==========================================
+   Personalización de Scrollbar (Webkit: Chrome, Edge, Safari)
+   ========================================== */
+
+/* Ancho general de la barra */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+/* Fondo del track (el fondo de la barra, del mismo tono de la app) */
+::-webkit-scrollbar-track {
+  background: #0e0e0e;
+}
+
+/* La barra que se desplaza (Thumb) en color negro */
+::-webkit-scrollbar-thumb {
+  background: #141414;
+  border-radius: 9999px;
+  border: 1px solid #262626; /* Opcional: un borde sutil para destacarla del fondo */
+}
+
+/* Cambia a un negro más visible cuando pasas el cursor (Hover) */
+::-webkit-scrollbar-thumb:hover {
+  background: #202020;
+}
+
+/* ==========================================
+   Soporte estándar para Firefox
+   ========================================== */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #141414 #0e0e0e; /* [Thumb] [Track] */
+}
+
 :root {
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0.008 326);
