@@ -18,7 +18,6 @@
     "ignoreDeprecations": "6.0",
 
     /* Alias de rutas para shadcn/ui */
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
