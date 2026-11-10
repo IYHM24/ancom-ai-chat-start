@@ -21,11 +21,13 @@ public static class CorssExtension
                 name: PolicyCorssList.WhiteList.ToString(), 
                 policy =>
                 {
-                    policy.WithOrigins([
-                        "http://localhost:5173",                                    // El puerto de tu frontend (Vite/React)
-                        "https://jeffrey-noncompoundable-oversoftly.ngrok-free.dev" // El dominio de tu frontend (ngrok)
-                     ]).AllowAnyHeader()
-                       .AllowAnyMethod();
+                    policy.WithOrigins(
+                        "http://localhost:5173",
+                        "https://6af13f880352e75388419c24--devenir-ai.netlify.app", // SIN / AL FINAL
+                        "https://devenir-ai.netlify.app"
+                    ).AllowAnyHeader()
+                     .AllowAnyMethod()
+                     .AllowCredentials();
                 }
             );
         });
