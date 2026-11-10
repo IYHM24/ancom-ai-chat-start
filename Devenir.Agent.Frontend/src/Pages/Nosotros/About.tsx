@@ -92,7 +92,7 @@ export const About: React.FC = () => {
       <div className="space-y-4 text-center sm:text-left">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/80 border border-neutral-800 text-neutral-300 text-[11px] sm:text-xs">
           <GraduationCap className="w-4 h-4 text-green-400 flex-none" />
-          <span className="truncate">Devenir - Ingeniería</span>
+          <span className="truncate">Ingeniería - U. Militar Nueva Granada</span>
         </div>
         
         <p className="text-sm sm:text-base text-neutral-400 font-light max-w-2xl leading-relaxed">
