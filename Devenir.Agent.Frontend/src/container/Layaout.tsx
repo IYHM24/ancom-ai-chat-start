@@ -11,7 +11,9 @@ import {
   AlertTriangle,
   CheckCircle2,
   Loader2,
-  HeartHandshake
+  HeartHandshake,
+  Menu,
+  X
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { checkAgentStatus, type PingResponse } from "@/Controllers/AgentController.service"
@@ -26,6 +28,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   const [agentStatus, setAgentStatus] = useState<PingResponse | null>(null)
   const [isChecking, setIsChecking] = useState(true)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   // Verificación del estado del backend al cargar y cada 30 segundos
   useEffect(() => {
@@ -58,36 +61,67 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     "Planificación de sprint"
   ]
 
+  const handleNavigate = (path: string) => {
+    navigate(path)
+    setMobileMenuOpen(false)
+  }
+
   return (
     <div className="relative w-full bg-[#0e0e0e] text-neutral-100 h-screen flex flex-col overflow-hidden">
       
       {/* Header flotante */}
-      <header className="absolute top-0 left-0 right-0 z-50 p-4 pointer-events-none">
-        <div className="flex w-full bg-black/60 backdrop-blur-md border border-neutral-800/80 rounded-lg shadow-lg p-3 pointer-events-auto">
-          <div className="w-1/2 flex items-center gap-2 cursor-pointer" onClick={() => navigate("/")}>
-            <h1 className="text-xl font-bold tracking-wide">Devenir</h1>
-            <strong>|</strong>
-            <p className="text-sm text-neutral-400 font-light">Tu yo del futuro</p>
+      <header className="absolute top-0 left-0 right-0 z-40 p-2 sm:p-4 pointer-events-none">
+        <div className="flex w-full items-center justify-between bg-black/60 backdrop-blur-md border border-neutral-800/80 rounded-lg shadow-lg p-3 pointer-events-auto">
+          
+          <div className="flex items-center gap-3">
+            {/* Botón menú hamburguesa (solo móvil) */}
+            <button 
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-1.5 text-neutral-300 hover:text-white rounded-md bg-neutral-900 border border-neutral-800"
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleNavigate("/")}>
+              <h1 className="text-lg sm:text-xl font-bold tracking-wide">Devenir</h1>
+              <strong>|</strong>
+              <p className="text-xs sm:text-sm text-neutral-400 font-light truncate">Tu yo del futuro</p>
+            </div>
           </div>
-          <div className="w-1/2 flex justify-end items-center gap-3 text-lg">
-            <Cpu className="w-6 h-6 text-neutral-400" />
-            <strong className="text-sm font-semibold">Prototipo</strong>
-            <Badge variant="default" className="bg-green-800/80 text-green-200 border border-green-700">V1.0.0</Badge>
+
+          <div className="flex justify-end items-center gap-2 sm:gap-3 text-base sm:text-lg">
+            <Cpu className="w-5 h-5 sm:w-6 sm:h-6 text-neutral-400" />
+            <strong className="hidden sm:inline text-sm font-semibold">Prototipo</strong>
+            <Badge variant="default" className="bg-green-800/80 text-green-200 border border-green-700 text-xs">V1.0.0</Badge>
           </div>
         </div>
       </header>
 
+      {/* Backdrop para cerrar menú en móvil */}
+      {mobileMenuOpen && (
+        <div 
+          className="fixed inset-0 bg-black/80 z-40 md:hidden backdrop-blur-xs"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Main Container */}
-      <main className="w-full flex flex-1 h-full min-h-0 overflow-hidden gap-4 px-4">
+      <main className="w-full flex flex-1 h-full min-h-0 overflow-hidden gap-4 px-2 sm:px-4">
         
-        {/* Sidebar */}
-        <aside className="w-64 flex flex-col gap-2 pt-20 pb-4 flex-none">
+        {/* Sidebar Responsive */}
+        <aside className={`
+          fixed md:relative top-0 left-0 bottom-0 z-50 md:z-auto
+          w-72 md:w-64 flex flex-col gap-2 pt-20 pb-4 flex-none
+          bg-[#0e0e0e] md:bg-transparent px-3 md:px-0
+          transition-transform duration-300 ease-in-out
+          ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
+        `}>
           <div className="bg-black/70 backdrop-blur-md border border-neutral-800/80 rounded-lg shadow-lg p-3 flex-1 flex flex-col justify-between overflow-y-auto">
             <div className="space-y-4">
               
               {/* Botón Acción Principal: Ir al Chat Raíz */}
               <button 
-                onClick={() => navigate("/")}
+                onClick={() => handleNavigate("/")}
                 className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-100 font-medium py-2 px-3 rounded-md border border-neutral-700/60 transition-all text-sm cursor-pointer"
               >
                 <Plus className="w-4 h-4 text-green-400" />
@@ -104,7 +138,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   return (
                     <button
                       key={item.id}
-                      onClick={() => navigate(item.path)}
+                      onClick={() => handleNavigate(item.path)}
                       className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-md transition-colors cursor-pointer ${
                         isActive 
                           ? "bg-neutral-800/80 text-white font-medium border-l-2 border-green-500" 
@@ -124,7 +158,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                   {recentChats.map((chat, idx) => (
                     <button
                       key={idx}
-                      onClick={() => navigate("/")}
+                      onClick={() => handleNavigate("/")}
                       className="w-full text-left truncate px-3 py-1.5 text-xs text-neutral-400 hover:text-neutral-200 hover:bg-neutral-900/40 rounded-md transition-colors cursor-pointer"
                     >
                       {chat}

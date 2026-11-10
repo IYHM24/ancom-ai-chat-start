@@ -137,25 +137,25 @@ export const Chat: React.FC = () => {
 
       {/* 🚨 OVERLAY Y ALERTA DE CONEXIÓN EN EL CENTRO */}
       {isConnecting && (
-        <div className="absolute inset-0 z-40 backdrop-blur-md flex items-center justify-center p-4 transition-all duration-300">
-          <div className="w-full max-w-md bg-[#121212]/95 border border-amber-500/30 rounded-2xl p-6 shadow-2xl text-center space-y-4 animate-in zoom-in-95 duration-200">
+        <div className="absolute inset-0 z-40 backdrop-blur-md flex items-center justify-center p-3 sm:p-4 transition-all duration-300">
+          <div className="w-full max-w-md bg-[#121212]/95 border border-amber-500/30 rounded-2xl p-4 sm:p-6 shadow-2xl text-center space-y-4 animate-in zoom-in-95 duration-200">
 
             {isCheckingConnection ? (
-              <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mx-auto text-neutral-400">
-                <Loader2 className="w-6 h-6 animate-spin text-green-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center mx-auto text-neutral-400">
+                <Loader2 className="w-5 h-5 sm:w-6 sm:h-6 animate-spin text-green-400" />
               </div>
             ) : agentStatus?.error?.includes("No se pudo establecer conexión") ? (
-              <div className="w-12 h-12 rounded-full bg-red-950/60 border border-red-800/60 flex items-center justify-center mx-auto text-red-400">
-                <WifiOff className="w-6 h-6 animate-pulse" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-red-950/60 border border-red-800/60 flex items-center justify-center mx-auto text-red-400">
+                <WifiOff className="w-5 h-5 sm:w-6 sm:h-6 animate-pulse" />
               </div>
             ) : (
-              <div className="w-12 h-12 rounded-full bg-amber-950/60 border border-amber-800/60 flex items-center justify-center mx-auto text-amber-400">
-                <AlertTriangle className="w-6 h-6 animate-bounce" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-amber-950/60 border border-amber-800/60 flex items-center justify-center mx-auto text-amber-400">
+                <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 animate-bounce" />
               </div>
             )}
 
             <div className="space-y-1.5">
-              <h3 className="text-lg font-bold text-neutral-100">
+              <h3 className="text-base sm:text-lg font-bold text-neutral-100">
                 {isCheckingConnection
                   ? "Verificando Conexión..."
                   : agentStatus?.error?.includes("No se pudo establecer conexión")
@@ -187,30 +187,30 @@ export const Chat: React.FC = () => {
       )}
 
       {/* Lista de Mensajes / Pantalla Inicial */}
-      <div className="flex-1 w-full max-w-3xl mx-auto px-4 pb-6">
+      <div className="flex-1 w-full max-w-3xl mx-auto px-3 sm:px-4 pb-4 sm:pb-6">
         {messages.length === 0 && !isPending ? (
 
           /* Hero Section / Portada de Inicio centrada en el Yo del Futuro */
-          <div className="min-h-[65vh] flex flex-col items-center justify-center text-center py-8 space-y-8 animate-in fade-in duration-500">
+          <div className="min-h-[55vh] sm:min-h-[65vh] flex flex-col items-center justify-center text-center py-4 sm:py-8 space-y-6 sm:space-y-8 animate-in fade-in duration-500">
 
             {/* Encabezado Principal */}
-            <div className="space-y-3 max-w-xl">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/80 border border-neutral-800 text-neutral-300 text-xs mb-2">
-                <Sparkles className="w-3.5 h-3.5 text-green-400 animate-pulse" />
+            <div className="space-y-2 sm:space-y-3 max-w-xl">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-neutral-900/80 border border-neutral-800 text-neutral-300 text-[11px] sm:text-xs mb-1 sm:mb-2">
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-green-400 animate-pulse" />
                 <span>Conexión Temporal Activa</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-neutral-100 via-neutral-200 to-neutral-400 tracking-tight">
+              <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-linear-to-r from-neutral-100 via-neutral-200 to-neutral-400 tracking-tight">
                 Habla con tu 'Yo' del futuro
               </h1>
 
-              <p className="text-base text-neutral-400 font-light leading-relaxed">
+              <p className="text-xs sm:text-base text-neutral-400 font-light leading-relaxed px-1 sm:px-0">
                 Haz preguntas sobre tu trayectoria, consulta decisiones estratégicas o explora los escenarios que aguardan en tu horizonte.
               </p>
             </div>
 
             {/* Grid de Cartas de Recomendación */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 w-full text-left">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3.5 w-full text-left">
               {promptSuggestions.map((item, index) => {
                 const Icon = item.icon
                 return (
@@ -218,20 +218,20 @@ export const Chat: React.FC = () => {
                     key={index}
                     disabled={isConnecting}
                     onClick={() => handleSend(item.prompt)}
-                    className={`group relative flex flex-col justify-between p-4 rounded-xl border shadow-md transition-all duration-200 text-left overflow-hidden ${isConnecting
+                    className={`group relative flex flex-col justify-between p-3.5 sm:p-4 rounded-xl border shadow-md transition-all duration-200 text-left overflow-hidden ${isConnecting
                         ? "bg-black/20 border-neutral-900 opacity-50 cursor-not-allowed"
                         : "bg-black/40 hover:bg-neutral-900/70 border-neutral-800/80 hover:border-neutral-700/80 shadow-md hover:shadow-xl cursor-pointer"
                       }`}
                   >
                     <div className="space-y-2">
                       <div className="flex items-center justify-between">
-                        <Icon className={`w-5 h-5 ${item.color}`} />
-                        <ArrowRight className="w-4 h-4 text-neutral-600 group-hover:text-neutral-300 group-hover:translate-x-1 transition-all" />
+                        <Icon className={`w-4 h-4 sm:w-5 sm:h-5 ${item.color}`} />
+                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-600 group-hover:text-neutral-300 group-hover:translate-x-1 transition-all" />
                       </div>
-                      <h3 className="text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors">
+                      <h3 className="text-xs sm:text-sm font-semibold text-neutral-200 group-hover:text-white transition-colors">
                         {item.title}
                       </h3>
-                      <p className="text-xs text-neutral-400 font-light leading-snug">
+                      <p className="text-[11px] sm:text-xs text-neutral-400 font-light leading-snug">
                         {item.description}
                       </p>
                     </div>
@@ -245,7 +245,7 @@ export const Chat: React.FC = () => {
         ) : (
 
           /* Lista de mensajes durante la conversación */
-          <div className="space-y-4 pt-4">
+          <div className="space-y-3 sm:space-y-4 pt-3 sm:pt-4">
             {messages.map((msg, index) => {
               const textContent = msg.parts
                 ?.filter((part) => part.type === "text")
@@ -283,7 +283,7 @@ export const Chat: React.FC = () => {
       </div>
 
       {/* Input y Botón Flotante */}
-      <footer className="sticky bottom-0 bg-linear-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent pt-6 pb-6 px-4 z-20">
+      <footer className="sticky bottom-0 bg-linear-to-t from-[#0e0e0e] via-[#0e0e0e] to-transparent pt-4 sm:pt-6 pb-4 sm:pb-6 px-3 sm:px-4 z-20">
         <div className="relative max-w-3xl mx-auto">
 
           {/* Botón Flotante para Scroll */}
@@ -291,10 +291,10 @@ export const Chat: React.FC = () => {
             <button
               onClick={scrollToBottom}
               type="button"
-              className="absolute -top-12 left-1/2 -translate-x-1/2 p-2.5 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 shadow-2xl backdrop-blur-md transition-all duration-200 cursor-pointer z-30 flex items-center justify-center active:scale-95"
+              className="absolute -top-10 sm:-top-12 left-1/2 -translate-x-1/2 p-2 sm:p-2.5 rounded-full bg-neutral-900/90 hover:bg-neutral-800 text-neutral-200 border border-neutral-700/80 shadow-2xl backdrop-blur-md transition-all duration-200 cursor-pointer z-30 flex items-center justify-center active:scale-95"
               title="Ir abajo"
             >
-              <ArrowDown className="w-4 h-4 text-neutral-200" />
+              <ArrowDown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-200" />
             </button>
           )}
 
@@ -309,7 +309,7 @@ export const Chat: React.FC = () => {
             />
           </div>
 
-          <div className="text-center mt-4 text-xs text-neutral-500">
+          <div className="text-center mt-3 sm:mt-4 text-[10px] sm:text-xs text-neutral-500">
             <span>Devenir | Todos los derechos reservados © {new Date().getFullYear()}</span>
           </div>
         </div>
