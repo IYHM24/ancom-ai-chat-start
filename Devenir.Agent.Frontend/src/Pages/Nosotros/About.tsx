@@ -92,12 +92,8 @@ export const About: React.FC = () => {
       <div className="space-y-4 text-center sm:text-left">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-900/80 border border-neutral-800 text-neutral-300 text-[11px] sm:text-xs">
           <GraduationCap className="w-4 h-4 text-green-400 flex-none" />
-          <span className="truncate">Universidad Militar Nueva Granada — Ingeniería de Telecomunicaciones</span>
+          <span className="truncate">Devenir - Ingeniería</span>
         </div>
-        
-        <h1 className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tight text-transparent bg-gradient-to-r from-white via-neutral-200 to-neutral-400">
-          Devenir | Tu yo del futuro
-        </h1>
         
         <p className="text-sm sm:text-base text-neutral-400 font-light max-w-2xl leading-relaxed">
           <strong>Devenir</strong> es una plataforma de IA generativa concebida en la asignatura de <strong>Seminario en Tecnologías</strong>. Permite interactuar con una proyección de ti mismo a 15, 25 o 40 años para transformar tus decisiones presentes.
@@ -110,7 +106,7 @@ export const About: React.FC = () => {
             alt="Creadores del Proyecto Devenir - UMNG"
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#0e0e0e] via-black/30 to-transparent" />
           
           <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex justify-between items-end gap-2">
             <div className="bg-black/80 backdrop-blur-md border border-neutral-700/60 rounded-xl p-3 sm:p-4 max-w-xl shadow-xl text-left">
