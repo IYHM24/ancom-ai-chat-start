@@ -98,7 +98,7 @@ export const About: React.FC = () => {
           <span>Universidad Militar Nueva Granada — Ingeniería de Telecomunicaciones</span>
         </div>
         
-        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-transparent bg-gradient-to-r from-white via-neutral-200 to-neutral-400">
+        <h1 className="text-3xl sm:text-5xl font-bold tracking-tight text-transparent bg-linear-to-r from-white via-neutral-200 to-neutral-400">
           Devenir | Tu yo del futuro
         </h1>
         
@@ -113,7 +113,7 @@ export const About: React.FC = () => {
             alt="Creadores del Proyecto Devenir - UMNG"
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e0e] via-black/30 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-t from-[#0e0e0e] via-black/30 to-transparent" />
           
           <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
             <div className="bg-black/80 backdrop-blur-md border border-neutral-700/60 rounded-xl p-4 max-w-xl shadow-xl">
