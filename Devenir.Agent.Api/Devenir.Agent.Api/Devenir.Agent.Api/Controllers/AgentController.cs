@@ -211,15 +211,20 @@ public class AgentController : ControllerBase
                     await Response.Body.FlushAsync(cancellationToken);
                 }
             }
+
+            // 4. Enviar el cierre del mensaje (text-end) y terminar el stream ([DONE])
+            await Response.WriteAsync($"data: {{\"type\":\"text-end\",\"id\":\"{messageId}\"}}\n\n", cancellationToken);
+            await Response.WriteAsync("data: [DONE]\n\n", cancellationToken);
+            await Response.Body.FlushAsync(cancellationToken);
         }
         catch (Exception ex)
         {
         }
+        finally
+        {
 
-        // 4. Enviar el cierre del mensaje (text-end) y terminar el stream ([DONE])
-        await Response.WriteAsync($"data: {{\"type\":\"text-end\",\"id\":\"{messageId}\"}}\n\n", cancellationToken);
-        await Response.WriteAsync("data: [DONE]\n\n", cancellationToken);
-        await Response.Body.FlushAsync(cancellationToken);
+        }
+       
     }
 
 

@@ -167,7 +167,7 @@ export const Chat: React.FC = () => {
                 {isCheckingConnection
                   ? "Estableciendo enlace con el servidor en .NET 10..."
                   : agentStatus?.error?.includes("No se pudo establecer conexión")
-                    ? "Para proceder con la ejecución del agente, asegúrese de solicitar la habilitación previa al equipo de soporte. El servicio requiere ser activado internamente antes de estar disponible para pruebas. "
+                    ? "Para proceder con la ejecución del agente, asegúrese de solicitar la habilitación previa al equipo de soporte. El servicio requiere ser activado internamente antes de estar disponible para pruebas.\nSi desea contactar al equipo el WhatsApp es +57 350 693 0989."
                     : "El modelo local está inicializando la memoria contextual. El chat estará disponible automáticamente en unos segundos."}
               </p>
             </div>

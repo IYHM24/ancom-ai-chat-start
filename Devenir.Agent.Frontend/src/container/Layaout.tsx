@@ -170,7 +170,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
             {/* Indicador de Agente Activo con status real */}
             <div className="pt-3 border-t border-neutral-800/80 flex items-center justify-between text-xs text-neutral-500">
-              <span className="truncate">Agente Activo</span>
+              <span className="truncate">{agentStatus?.status === "online" ? "Agente Activo" : "Agente Inactivo"}</span>
               <span 
                 className={`w-2 h-2 rounded-full ${
                   agentStatus?.status === "online" 
@@ -206,6 +206,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 </div>
                 <p className="text-[11px] text-neutral-400 leading-tight">
                   El agente puede demorar unos minutos en responder por primera vez.
+                  Si desea contactar al equipo el WhatsApp es +57 350 693 0989.
                 </p>
               </div>
             )}
