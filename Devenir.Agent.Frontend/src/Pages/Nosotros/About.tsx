@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import { 
   Sparkles, 
   Brain, 
@@ -14,11 +14,53 @@ import {
   Workflow,
   Mic,
   UserCheck,
-  BookOpen
+  BookOpen,
+  FileText,
+  ShieldAlert,
+  Globe,
+  ExternalLink
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
 export const About: React.FC = () => {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!iframe.contentWindow) return;
+
+          if (entry.isIntersecting) {
+            iframe.contentWindow.postMessage(
+              JSON.stringify({ event: "command", func: "unMute", args: [] }),
+              "*"
+            );
+            iframe.contentWindow.postMessage(
+              JSON.stringify({ event: "command", func: "playVideo", args: [] }),
+              "*"
+            );
+          } else {
+            iframe.contentWindow.postMessage(
+              JSON.stringify({ event: "command", func: "pauseVideo", args: [] }),
+              "*"
+            );
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(iframe);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const teamMembers = [
     { name: "Miguel Andrey Peña Cárdenas", role: "Ingeniería en Telecomunicaciones" },
     { name: "Cristian Camilo Sierra Daza", role: "Ingeniería en Telecomunicaciones" },
@@ -44,6 +86,40 @@ export const About: React.FC = () => {
       icon: UserCheck,
       color: "text-emerald-400 border-emerald-800/40 bg-emerald-950/20",
       description: "Modelos computacionales que proyectan decisiones futuras según patrones de comportamiento e interacción del usuario."
+    }
+  ]
+
+  const patentCategories = [
+    {
+      category: "Modelos de Lenguaje (LLM)",
+      icon: Brain,
+      color: "text-purple-400 border-purple-800/40 bg-purple-950/20",
+      patents: [
+        { code: "US 12.354.005 B2", holder: "Google", desc: "Modelos de lenguaje extensos (Familia en EP, CN, JP y KR).", url: "https://patents.google.com/patent/US12354005B2/en" },
+        { code: "US 10.452.978 B2", holder: "Google", desc: "Procesamiento y optimización de modelos generativos.", url: "https://patents.google.com/patent/US10452978B2/en" }
+      ],
+      //legalNote: "Interfiere si se entrena un LLM propio. Al consumir APIs de terceros, aplica revisión de licencias comerciales."
+    },
+    {
+      category: "Clonación y Síntesis de Voz",
+      icon: Mic,
+      color: "text-blue-400 border-blue-800/40 bg-blue-950/20",
+      patents: [
+        { code: "US 12,462,787", holder: "USPTO", desc: "Voz conversacional con inteligencia artificial generativa.", url: "https://patents.google.com/patent/US12462787/en" },
+        { code: "CN 112365882 A", holder: "China (SIPO)", desc: "Sistemas de síntesis y clonación de voz personalizada.", url: "https://patents.google.com/patent/CN112365882A/en" }
+      ],
+      //legalNote: "Afecta la viabilidad si se entrena un modelo de voz propio desde cero."
+    },
+    {
+      category: "Persona con LLM & Gemelos Digitales",
+      icon: UserCheck,
+      color: "text-emerald-400 border-emerald-800/40 bg-emerald-950/20",
+      patents: [
+        { code: "US 12.333.261 B2", holder: "Morphusai (TW)", desc: "Agentes virtuales persona basados en modelos de lenguaje.", url: "https://patents.google.com/patent/US12333261B2/en" },
+        { code: "US 12.513.102 B2", holder: "Meta (PCT WO 2025/117006)", desc: "Emulación de comportamiento humano e identidades futuras.", url: "https://patents.google.com/patent/US12513102B2/en" },
+        { code: "WO 2018/217948", holder: "EPO", desc: "Familia de patentes sobre agentes conversacionales personalizados.", url: "https://patents.google.com/patent/WO2018217948A1/en" }
+      ],
+      //legalNote: "Zona de mayor solapamiento tecnológico. Requiere asesoría legal para patente defensiva."
     }
   ]
 
@@ -99,29 +175,16 @@ export const About: React.FC = () => {
           <strong>Devenir</strong> es una plataforma de IA generativa concebida en la asignatura de <strong>Seminario en Tecnologías</strong>. Permite interactuar con una proyección de ti mismo a 15, 25 o 40 años para transformar tus decisiones presentes.
         </p>
 
-        {/* Banner Fotográfico */}
-        <div className="relative w-full h-56 sm:h-80 md:h-96 rounded-2xl overflow-hidden border border-neutral-800/80 shadow-2xl bg-neutral-900 group mt-4 sm:mt-6">
-          <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
-            alt="Creadores del Proyecto Devenir - UMNG"
-            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-90 contrast-105"
+        {/* Reproductor de Video con Autoplay por Scroll */}
+        <div className="relative w-full aspect-video rounded-2xl overflow-hidden border border-neutral-800/80 shadow-2xl bg-neutral-900 mt-4 sm:mt-6">
+          <iframe
+            ref={iframeRef}
+            className="w-full h-full border-0"
+            src="https://www.youtube.com/embed/milP7IZpd4w?enablejsapi=1&autoplay=1"
+            title="Proyecto Devenir - Creadores UMNG"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
           />
-          <div className="absolute inset-0 bg-linear-to-t from-[#0e0e0e] via-black/30 to-transparent" />
-          
-          <div className="absolute bottom-3 left-3 right-3 sm:bottom-4 sm:left-4 sm:right-4 flex justify-between items-end gap-2">
-            <div className="bg-black/80 backdrop-blur-md border border-neutral-700/60 rounded-xl p-3 sm:p-4 max-w-xl shadow-xl text-left">
-              <div className="flex items-center gap-2 mb-1">
-                <Users className="w-4 h-4 text-green-400 flex-none" />
-                <span className="text-[10px] sm:text-xs font-semibold text-neutral-200 uppercase tracking-wider">Proyecto Devenir — Creadores UMNG</span>
-              </div>
-              <p className="text-[11px] sm:text-xs text-neutral-300 font-light leading-relaxed">
-                Desarrollado por los estudiantes de Ingeniería en Telecomunicaciones con los conocimientos académicos y tecnológicos de Seminario en Tecnologías.
-              </p>
-            </div>
-            <Badge variant="outline" className="hidden sm:inline-flex bg-neutral-900/90 border-neutral-700 text-neutral-300 backdrop-blur-md">
-              Prototipo V1.0.0
-            </Badge>
-          </div>
         </div>
       </div>
 
@@ -188,7 +251,83 @@ export const About: React.FC = () => {
         </div>
       </section>
 
-      {/* 4. Metodología Design Thinking */}
+      {/* 4. Submódulo de Patentes y Propiedad Intelectual */}
+      <section className="space-y-6">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-800 pb-3">
+          <div className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-amber-400" />
+            <h2 className="text-base sm:text-lg font-bold text-neutral-200">Vigilancia Tecnológica & Patentes</h2>
+          </div>
+          <Badge variant="outline" className="border-amber-800/60 bg-amber-950/30 text-amber-300 text-[10px]">
+            USPTO / EPO / SIPO / SIC
+          </Badge>
+        </div>
+
+        <p className="text-xs sm:text-sm text-neutral-300 font-light leading-relaxed">
+          Como parte de la investigación en <strong>Seminario en Tecnologías</strong>, se realizó una búsqueda de patentes internacionales previas para identificar posibles interferencias de propiedad intelectual:
+        </p>
+
+        {/* Listado de patentes agrupadas por tecnología */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {patentCategories.map((cat, idx) => {
+            const Icon = cat.icon
+            return (
+              <div 
+                key={idx} 
+                className="p-4 rounded-xl bg-black/50 border border-neutral-800/80 hover:border-neutral-700 flex flex-col justify-between space-y-4 transition-colors"
+              >
+                <div className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className={`p-2 rounded-lg border w-fit ${cat.color}`}>
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <h3 className="text-xs font-bold text-neutral-200">{cat.category}</h3>
+                  </div>
+
+                  <div className="space-y-2">
+                    {cat.patents.map((pat, pIdx) => (
+                      <div key={pIdx} className="p-2.5 rounded-lg bg-neutral-900/80 border border-neutral-800 text-left space-y-1">
+                        <div className="flex items-center justify-between gap-2">
+                          <a 
+                            href={pat.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-mono text-[11px] font-bold text-amber-400 hover:text-amber-300 hover:underline inline-flex items-center gap-1 group/link"
+                          >
+                            <span>{pat.code}</span>
+                            <ExternalLink className="w-3 h-3 opacity-70 group-hover/link:opacity-100 transition-opacity" />
+                          </a>
+                          <span className="text-[10px] text-neutral-500 font-semibold truncate">{pat.holder}</span>
+                        </div>
+                        <p className="text-[11px] text-neutral-400 font-light leading-tight">{pat.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* {cat.legalNote? <div className="pt-2 border-t border-neutral-800/60 flex items-start gap-1.5 text-[10px] text-neutral-400 font-light">
+                  <ShieldAlert className="w-3.5 h-3.5 text-amber-500 flex-none mt-0.5" />
+                  <span>{cat.legalNote}</span>
+                </div> : <></>} */}
+              </div>
+            )
+          })}
+        </div>
+
+        {/* Cuadro informativo sobre legislación en Colombia (SIC) */}
+        {/* <div className="p-4 rounded-xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+          <div className="flex items-center gap-2 text-green-400">
+            <Globe className="w-4 h-4" />
+            <h4 className="text-xs font-bold text-neutral-200 uppercase tracking-wider">Estado Territorial & Novedad en Colombia (SIC)</h4>
+          </div>
+          <p className="text-xs text-neutral-400 font-light leading-relaxed">
+            No se hallaron patentes registradas ante la <strong>Superintendencia de Industria y Comercio (SIC)</strong> que cubran esta solución en el país. En la Decisión 486 (Art. 15 e) de la Comunidad Andina, el software <em>"como tal"</em> no constituye invención patentable; no obstante, sí lo son las <strong>invenciones implementadas por computador con efecto técnico concreto</strong>.
+          </p>
+        </div> */}
+
+      </section>
+
+      {/* 5. Metodología Design Thinking */}
       <section className="space-y-6">
         <div className="flex items-center gap-3 border-b border-neutral-800 pb-3">
           <div className="p-2 rounded-lg bg-green-950/50 border border-green-800/40 text-green-400 flex-none">
@@ -224,7 +363,7 @@ export const About: React.FC = () => {
         </div>
       </section>
 
-      {/* 5. Especificaciones Técnicas */}
+      {/* 6. Especificaciones Técnicas */}
       <section className="bg-black/70 border border-neutral-800/80 rounded-2xl p-4 sm:p-6 space-y-6 shadow-xl">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-neutral-800 pb-4 gap-2">
           <div>
@@ -283,7 +422,7 @@ export const About: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Pie de página */}
+      {/* 7. Pie de página */}
       <div className="pt-4 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between text-xs text-neutral-500 gap-2 text-center sm:text-left">
         <span>Devenir © {new Date().getFullYear()} — Todos los derechos reservados</span>
         <div className="flex items-center gap-1.5 text-neutral-400">
