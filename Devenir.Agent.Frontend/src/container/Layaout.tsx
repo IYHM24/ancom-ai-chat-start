@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
 import { 
   MessageSquarePlus, 
-  History, 
-  Settings, 
-  User, 
+  //History, 
+  //Settings, 
+  //User, 
   Cpu, 
   Plus, 
-  HelpCircle,
+  //HelpCircle,
   AlertTriangle,
   CheckCircle2,
   Loader2,
@@ -48,18 +48,18 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   // Rutas mapeadas para react-router-dom
   const menuItems = [
     { id: "new-chat", label: "Nuevo Chat", icon: MessageSquarePlus, path: "/" },
-    { id: "history", label: "Historial", icon: History, path: "/history" },
+    /* { id: "history", label: "Historial", icon: History, path: "/history" },
     { id: "profile", label: "Mi Perfil", icon: User, path: "/profile" },
     { id: "settings", label: "Configuración", icon: Settings, path: "/settings" },
-    { id: "help", label: "Ayuda y Soporte", icon: HelpCircle, path: "/help" },
+    { id: "help", label: "Ayuda y Soporte", icon: HelpCircle, path: "/help" }, */
     { id: "nosotros", label: "Nosotros", icon: HeartHandshake, path: "/nosotros" },
   ]
 
-  const recentChats = [
+  /* const recentChats = [
     "Análisis de negocio",
     "Refactorización C#",
     "Planificación de sprint"
-  ]
+  ] */
 
   const handleNavigate = (path: string) => {
     navigate(path)
@@ -155,7 +155,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="space-y-1 pt-2">
                 <span className="text-[10px] font-semibold text-neutral-500 uppercase tracking-wider px-2">Recientes</span>
                 <div className="space-y-0.5">
-                  {recentChats.map((chat, idx) => (
+                  {/* {recentChats.map((chat, idx) => (
                     <button
                       key={idx}
                       onClick={() => handleNavigate("/")}
@@ -163,7 +163,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                     >
                       {chat}
                     </button>
-                  ))}
+                  ))} */}
                 </div>
               </div>
             </div>
