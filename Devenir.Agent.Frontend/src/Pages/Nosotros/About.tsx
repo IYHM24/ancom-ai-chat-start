@@ -16,8 +16,6 @@ import {
   UserCheck,
   BookOpen,
   FileText,
-  ShieldAlert,
-  Globe,
   ExternalLink
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
