@@ -52,7 +52,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     { id: "profile", label: "Mi Perfil", icon: User, path: "/profile" },
     { id: "settings", label: "Configuración", icon: Settings, path: "/settings" },
     { id: "help", label: "Ayuda y Soporte", icon: HelpCircle, path: "/help" }, */
-    { id: "nosotros", label: "Nosotros", icon: HeartHandshake, path: "/" },
+    { id: "nosotros", label: "Nosotros", icon: HeartHandshake, path: "/" }
   ]
 
   /* const recentChats = [
@@ -62,6 +62,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
   ] */
 
   const handleNavigate = (path: string) => {
+    debugger;
     navigate(path)
     setMobileMenuOpen(false)
   }
@@ -121,7 +122,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
               
               {/* Botón Acción Principal: Ir al Chat Raíz */}
               <button 
-                onClick={() => handleNavigate("/")}
+                onClick={() => handleNavigate("/chat")}
                 className="w-full flex items-center justify-center gap-2 bg-neutral-900 hover:bg-neutral-800 text-neutral-100 font-medium py-2 px-3 rounded-md border border-neutral-700/60 transition-all text-sm cursor-pointer"
               >
                 <Plus className="w-4 h-4 text-green-400" />
@@ -134,6 +135,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
                 {menuItems.slice(1).map((item) => {
                   const Icon = item.icon
                   const isActive = location.pathname === item.path
+                debugger;
 
                   return (
                     <button
