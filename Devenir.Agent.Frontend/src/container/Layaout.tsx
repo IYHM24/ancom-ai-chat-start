@@ -47,12 +47,12 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   // Rutas mapeadas para react-router-dom
   const menuItems = [
-    { id: "new-chat", label: "Nuevo Chat", icon: MessageSquarePlus, path: "/" },
+    { id: "new-chat", label: "Nuevo Chat", icon: MessageSquarePlus, path: "/chat" },
     /* { id: "history", label: "Historial", icon: History, path: "/history" },
     { id: "profile", label: "Mi Perfil", icon: User, path: "/profile" },
     { id: "settings", label: "Configuración", icon: Settings, path: "/settings" },
     { id: "help", label: "Ayuda y Soporte", icon: HelpCircle, path: "/help" }, */
-    { id: "nosotros", label: "Nosotros", icon: HeartHandshake, path: "/nosotros" },
+    { id: "nosotros", label: "Nosotros", icon: HeartHandshake, path: "/" },
   ]
 
   /* const recentChats = [
